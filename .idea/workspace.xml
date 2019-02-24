@@ -25,8 +25,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/java/webresources/user/UserResource.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="462">
-                  <caret line="57" column="23" lean-forward="true" selection-start-line="57" selection-start-column="23" selection-end-line="57" selection-end-column="23" />
+                <state relative-caret-position="902">
+                  <caret line="77" column="32" lean-forward="true" selection-start-line="77" selection-start-column="32" selection-end-line="77" selection-end-column="32" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -206,6 +206,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
@@ -271,12 +274,13 @@
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-959" />
-    <option name="y" value="-22" />
-    <option name="width" value="3696" />
-    <option name="height" value="1627" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="476" />
+    <option name="y" value="132" />
+    <option name="width" value="2759" />
+    <option name="height" value="1813" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -583,7 +587,7 @@
       <workItem from="1550565206986" duration="8565000" />
       <workItem from="1550577690030" duration="30000" />
       <workItem from="1550656765635" duration="29261000" />
-      <workItem from="1551007488371" duration="1162000" />
+      <workItem from="1551007488371" duration="1781000" />
     </task>
     <servers />
   </component>
@@ -620,7 +624,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88737000" />
+    <option name="totallyTimeSpent" value="89356000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -632,10 +636,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="67" y="-22" width="3773" height="2182" extended-state="6" />
+    <frame x="476" y="132" width="2759" height="1813" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.124831855" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17166112" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -654,8 +658,8 @@
       <window_info anchor="bottom" id="Application Servers" order="7" weight="0.3294979" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.3294979" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5092817" side_tool="true" visible="true" weight="0.22913505" />
-      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.49071833" visible="true" weight="0.22913505" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.509434" side_tool="true" visible="true" weight="0.2817164" />
+      <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.49056605" visible="true" weight="0.2817164" />
       <window_info anchor="bottom" id="Java Enterprise" order="12" weight="0.3294979" />
       <window_info anchor="bottom" id="Database Changes" order="13" />
       <window_info anchor="bottom" id="Version Control" order="14" />
@@ -975,8 +979,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/webresources/user/UserResource.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="57" column="23" lean-forward="true" selection-start-line="57" selection-start-column="23" selection-end-line="57" selection-end-column="23" />
+        <state relative-caret-position="902">
+          <caret line="77" column="32" lean-forward="true" selection-start-line="77" selection-start-column="32" selection-end-line="77" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
