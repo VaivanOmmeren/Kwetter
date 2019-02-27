@@ -1,20 +1,20 @@
 package dal.contexts.Memory;
 
 import dal.Dao.RoleDao;
-import models.Role;
+import models.UserRole;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
 import javax.enterprise.inject.Alternative;
-import javax.enterprise.inject.Default;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Stateful
-@Default
+@Alternative
 public class MemoryRoleDao implements RoleDao {
 
-    List<Role> roles = new ArrayList<Role>();
+    List<UserRole> userRoles = new ArrayList<UserRole>();
 
     public MemoryRoleDao() {
 
@@ -23,14 +23,15 @@ public class MemoryRoleDao implements RoleDao {
     @PostConstruct
     private void setRoles() {
         for (int x = 0; x < 5; x++) {
-            Role r = new Role("test", ""+x);
-            roles.add(r);
+            UserRole r = new UserRole("test");
+            r.setId(UUID.randomUUID().toString());
+            userRoles.add(r);
         }
     }
 
-    public Role getRole(String id) {
-        for (Role r : roles) {
-            if (r.getID().equals(id)) {
+    public UserRole getRole(String id) {
+        for (UserRole r : userRoles) {
+            if (r.getId().equals(id)) {
                 return r;
             }
         }
@@ -38,19 +39,19 @@ public class MemoryRoleDao implements RoleDao {
         return null;
     }
 
-    public Role addRole(Role r) {
+    public UserRole addRole(UserRole r) {
 
         int index = -1;
-        for (Role role : roles) {
-            if (role.getID().equals(r.getID())) {
-                index = roles.indexOf(role);
+        for (UserRole userRole : userRoles) {
+            if (userRole.getId().equals(r.getId())) {
+                index = userRoles.indexOf(userRole);
                 break;
             }
         }
 
         if (index == -1) {
-            roles.add(r);
-            System.out.println(roles);
+            userRoles.add(r);
+            System.out.println(userRoles);
             return r;
         } else {
             return null;
@@ -60,33 +61,33 @@ public class MemoryRoleDao implements RoleDao {
     public boolean removeRole(String id) {
 
         int index = -1;
-        for (Role r : roles) {
-            if (r.getID().equals(id)) {
-                index = roles.indexOf(r);
+        for (UserRole r : userRoles) {
+            if (r.getId().equals(id)) {
+                index = userRoles.indexOf(r);
                 break;
             }
         }
 
         if (index != -1) {
-            roles.remove(index);
+            userRoles.remove(index);
             return true;
         } else {
             return false;
         }
     }
 
-    public Role editRole(Role r) {
+    public UserRole editRole(UserRole r) {
 
-        for(Role role : roles){
-            if(role.getID().equals(r.getID())){
-                role.setName(r.getName());
-                return role;
+        for(UserRole userRole : userRoles){
+            if(userRole.getId().equals(r.getId())){
+                userRole.setName(r.getName());
+                return userRole;
             }
         }
         return null;
     }
 
-    public List<Role> getAll() {
-        return roles;
+    public List<UserRole> getAll() {
+        return userRoles;
     }
 }

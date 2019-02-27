@@ -36,6 +36,8 @@ public class UserService {
         return userDaoImpl.getUserByID(id);
     }
 
+    public User getUserByName(String name) { return userDaoImpl.getUserByName(name);}
+
     public List<User> getAllUsers() {
         return userDaoImpl.getAllUsers();
     }

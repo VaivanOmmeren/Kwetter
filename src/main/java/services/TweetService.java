@@ -3,12 +3,12 @@ package services;
 import dal.Dao.TweetDao;
 import dal.Dao.UserDao;
 import models.Tweet;
-import models.User;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
-import java.util.ArrayList;
 import java.util.List;
 
+@Stateless
 public class TweetService {
 
     @Inject

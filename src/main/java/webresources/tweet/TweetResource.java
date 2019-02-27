@@ -1,10 +1,7 @@
 package webresources.tweet;
 
-import dal.Dao.TweetDao;
 import models.Tweet;
 import services.TweetService;
-
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -41,18 +38,21 @@ public class TweetResource {
     }
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getTweet(@QueryParam("id") String id){
         return Response.ok(tweetService.getTweetById(id)).build();
     }
 
     @GET
     @Path("/{username}")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getTweetByUser(@PathParam("username") String userId){
         return Response.ok(tweetService.getAllTweetsByUser(userId)).build();
     }
 
     @GET
     @Path("users")
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getTweetByUsers(@QueryParam("users") List<String> userIDs){
         return Response.ok(tweetService.getAllTweetsByUsers(userIDs)).build();
     }

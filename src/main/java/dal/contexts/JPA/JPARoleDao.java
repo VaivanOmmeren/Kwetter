@@ -1,33 +1,48 @@
 package dal.contexts.JPA;
 
 import dal.Dao.RoleDao;
-import models.Role;
+import models.UserRole;
 
 import javax.ejb.Stateless;
-import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Default;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
-@Alternative
+@Default
 public class JPARoleDao implements RoleDao {
-    public Role getRole(String id) {
-        return null;
+
+    @PersistenceContext
+    EntityManager em;
+
+    public UserRole getRole(String id) {
+        TypedQuery query = em.createNamedQuery("userRole.getRoleById", UserRole.class);
+        query.setParameter("id", id);
+        List<UserRole> roles = query.getResultList();
+        return roles.get(0);
     }
 
-    public Role addRole(Role r) {
-        return null;
+    public UserRole addRole(UserRole r) {
+        em.persist(r);
+        return r;
     }
 
     public boolean removeRole(String id) {
-        return false;
+        em.remove(getRole(id));
+        return true;
     }
 
-    public Role editRole(Role r) {
-        return null;
+    public UserRole editRole(UserRole r) {
+        em.merge(r);
+        return r;
     }
 
-    public List<Role> getAll() {
-        return null;
+    public List<UserRole> getAll() {
+        Query query = em.createQuery("SELECT s from UserRole s");
+        return new ArrayList<UserRole>(query.getResultList());
     }
 }

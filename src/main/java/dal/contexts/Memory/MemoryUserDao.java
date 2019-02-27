@@ -5,12 +5,12 @@ import models.User;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
-import javax.enterprise.inject.Default;
+import javax.enterprise.inject.Alternative;
 import java.util.ArrayList;
 import java.util.List;
 
 @Stateful
-@Default
+@Alternative
 public class MemoryUserDao implements UserDao {
 
     private ArrayList<User> Users = new ArrayList<User>();
@@ -33,7 +33,7 @@ public class MemoryUserDao implements UserDao {
     public User EditUser(User u) {
         for(User user: Users){
             if(user.getName().equals(u.getName())){
-                user.setRole(u.getRole());
+                user.setUserRole(u.getUserRole());
                 user.setWebsite(u.getWebsite());
                 user.setBio(u.getBio());
                 if(u.getDateOfBirth() != null) user.setDateOfBirth(u.getDateOfBirth());
@@ -154,6 +154,10 @@ public class MemoryUserDao implements UserDao {
         }
 
         return requestedUsers;
+    }
+
+    public User getUserByName(String name) {
+        return null;
     }
 
 }

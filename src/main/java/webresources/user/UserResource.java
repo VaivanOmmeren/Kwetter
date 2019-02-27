@@ -20,9 +20,9 @@ public class UserResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUser(@QueryParam("username") String userId) {
-        if(userId != null){
-            return Response.status(200).entity(userServiceImpl.getUserByID(userId)).build();
+    public Response getUser(@QueryParam("username") String username) {
+        if(username != null){
+            return Response.status(200).entity(userServiceImpl.getUserByName(username)).build();
         }else{
             return Response.status(200).entity(userServiceImpl.getAllUsers()).build();
         }
@@ -67,10 +67,10 @@ public class UserResource {
 
     @PUT
     @Path("{username}/follow")
-    public Response followUser(@PathParam("username") String userId, @QueryParam("followID") String userToFollow){
+    public Response followUser(@PathParam("username") String userName, @QueryParam("followID") String userToFollow){
         try {
-            if(userServiceImpl.followUser(userId, userToFollow)){
-                return Response.status(204).header("Location", new URI("/api/users?username=" + userId)).build();
+            if(userServiceImpl.followUser(userName, userToFollow)){
+                return Response.status(204).header("Location", new URI("/api/users?username=" + userName)).build();
             }else{
                 return Response.status(400).build();
             }

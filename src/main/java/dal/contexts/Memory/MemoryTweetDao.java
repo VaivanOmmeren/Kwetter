@@ -5,6 +5,7 @@ import models.Tweet;
 import models.User;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
 import javax.ejb.Stateful;
 import javax.enterprise.inject.Default;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.List;
 public class MemoryTweetDao implements TweetDao {
 
     public MemoryTweetDao(){
-
+        System.out.println(" constructed");
     }
 
     private List<Tweet> tweets = new ArrayList<Tweet>();
@@ -23,12 +24,14 @@ public class MemoryTweetDao implements TweetDao {
     @PostConstruct
     public void createTweets(){
         for(int x = 0; x < 10; x++){
-            Tweet tweet = new Tweet(""+x , "Dit is een test", ""+(x*x));
+            Tweet tweet = new Tweet("Dit is een test", ""+(x*x));
+            tweet.setID(""+x);
             tweets.add(tweet);
         }
     }
 
     public Tweet getTweetById(String id) {
+        System.out.println(tweets.size());
         for(Tweet t : tweets){
             if(t.getID().equals(id)){
                 return t;

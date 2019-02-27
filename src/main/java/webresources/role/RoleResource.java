@@ -1,7 +1,6 @@
 package webresources.role;
 
-import dal.Dao.RoleDao;
-import models.Role;
+import models.UserRole;
 import services.RoleService;
 
 import javax.inject.Inject;
@@ -20,9 +19,9 @@ public class RoleResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createRole(Role r){
+    public Response createRole(UserRole r){
         try {
-            return Response.ok(roleService.createRole(r)).header("Location", new URI("/api/role?id=" +r.getID())).build();
+            return Response.ok(roleService.createRole(r)).header("Location", new URI("/api/role?id=" +r.getId())).build();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -44,9 +43,9 @@ public class RoleResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateRole(Role r){
+    public Response updateRole(UserRole r){
         try {
-            return Response.ok(roleService.updateRole(r)).header("Location", new URI("/api/role?id="+ r.getID())).build();
+            return Response.ok(roleService.updateRole(r)).header("Location", new URI("/api/role?id="+ r.getId())).build();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }

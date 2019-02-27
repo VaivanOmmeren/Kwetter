@@ -1,20 +1,32 @@
 package models;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.inject.Named;
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@NamedQueries({
+        @NamedQuery(name = "tweet.getTweetById", query = "SELECT s FROM Tweet s WHERE s.id = :id"),
+        @NamedQuery(name = "tweet.getTweetByUser", query = "SELECT s FROM Tweet s WHERE s.authorID = :id")
+})
 public class Tweet {
 
     public Tweet(){
 
     }
 
-    public Tweet(String ID, String text, String authorID){
-        this.ID = ID;
+    public Tweet(String text, String authorID){
+        this.id = id;
         this.text = text;
         this.authorID = authorID;
     }
 
-    private String ID;
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
     private String text;
     private String authorID;
     private Date postTimeStamp;
@@ -44,10 +56,10 @@ public class Tweet {
     }
 
     public String getID() {
-        return ID;
+        return id;
     }
 
     public void setID(String ID) {
-        this.ID = ID;
+        this.id = ID;
     }
 }

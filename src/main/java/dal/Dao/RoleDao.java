@@ -1,14 +1,15 @@
 package dal.Dao;
 
-import models.Role;
+import models.UserRole;
 
 import java.util.List;
 
+
 public interface RoleDao {
 
-    Role getRole(String id);
-    Role addRole(Role r);
+    UserRole getRole(String id);
+    UserRole addRole(UserRole r);
     boolean removeRole(String id);
-    Role editRole(Role r);
-    List<Role> getAll();
+    UserRole editRole(UserRole r);
+    List<UserRole> getAll();
 }

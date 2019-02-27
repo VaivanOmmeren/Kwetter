@@ -1,16 +1,33 @@
 package models;
 
-import java.util.ArrayList;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+@Entity
+@Table(name= "users")
+@NamedQueries({
+        @NamedQuery(name = "users.getUserById", query = "SELECT s FROM User s WHERE s.id = :id"),
+        @NamedQuery(name = "users.getUserByName", query = "SELECT s from User s WHERE s.name = :name")
+})
 public class User {
 
+    @Id
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid2")
+    private String id;
+    @Column(unique = true)
     private String name;
     private String password;
     private Date DateOfBirth;
-    private List<User> following = new ArrayList<User>();
-    private Role role;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<User> following;
+
+    @ManyToOne
+    private UserRole userRole;
     private String bio;
     private String website;
 
@@ -18,13 +35,13 @@ public class User {
 
     }
 
-    public User(String name, String password, Date dateOfBirth, Role role, String bio, String website){
+    public User(String name, String password, UserRole userRole, Date dateOfBirth, String bio, String website){
         this.name = name;
         this.password = password;
         this.DateOfBirth = dateOfBirth;
-        this.role = role;
         this.bio = bio;
         this.website = website;
+        this.userRole = userRole;
     }
 
     public User(String name){
@@ -55,13 +72,6 @@ public class User {
         DateOfBirth = dateOfBirth;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 
     public String getBio() {
 
@@ -82,6 +92,21 @@ public class User {
 
     public void addFollowing(User userFollowing) { following.add(userFollowing);}
 
+    public void unFollow(User unfollow){
+
+        int index = -1;
+
+        for(User u : following){
+            if(u.getId().equals(unfollow.getId())){
+                index = following.indexOf(u);
+            }
+        }
+
+        if(index != -1){
+            following.remove(index);
+        }
+    }
+
     public List<User> getFollowing() {
         return following;
     }
@@ -89,4 +114,22 @@ public class User {
     public void setFollowing(List<User> following) {
         this.following = following;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
+    }
+
+
 }

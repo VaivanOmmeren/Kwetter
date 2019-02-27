@@ -1,15 +1,11 @@
-import models.Role;
+import models.UserRole;
 import models.User;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class UserTest {
 
@@ -18,7 +14,7 @@ public class UserTest {
     @BeforeEach
     void setUp(){
         for(int i = 0; i < 10; i++){
-           User user = new User("Vai" +i , "test", new Date(), new Role("Test", ""+i), "Hoi ik ben een test", "www.google.com");
+           User user = new User("Vai" +i , "test", new UserRole(), new Date(), "Hoi ik ben een test", "www.google.com");
            Users.add(user);
         }
     }
