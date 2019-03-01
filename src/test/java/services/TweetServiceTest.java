@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class TweetServiceTest {
+public class TweetServiceTest {
 
     @Mock
     private static JPATweetDao mockDao;

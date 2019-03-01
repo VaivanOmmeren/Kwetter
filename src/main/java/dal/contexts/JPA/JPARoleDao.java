@@ -19,6 +19,10 @@ public class JPARoleDao implements RoleDao {
     @PersistenceContext
     EntityManager em;
 
+    public JPARoleDao(){
+
+    }
+
     public UserRole getRole(String id) {
         TypedQuery query = em.createNamedQuery("userRole.getRoleById", UserRole.class);
         query.setParameter("id", id);

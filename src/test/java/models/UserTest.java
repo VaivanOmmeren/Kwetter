@@ -1,3 +1,5 @@
+package models;
+
 import models.UserRole;
 import models.User;
 import org.junit.jupiter.api.BeforeEach;

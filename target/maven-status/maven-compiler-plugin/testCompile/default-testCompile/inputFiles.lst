@@ -1,2 +1,5 @@
-/home/vai/IdeaProjects/Kwetter/src/test/java/UserTest.java
-/home/vai/IdeaProjects/Kwetter/src/test/java/TweetTest.java
+/home/vai/IdeaProjects/Kwetter/src/test/java/models/UserTest.java
+/home/vai/IdeaProjects/Kwetter/src/test/java/models/TweetTest.java
+/home/vai/IdeaProjects/Kwetter/src/test/java/services/UserServiceTest.java
+/home/vai/IdeaProjects/Kwetter/src/test/java/services/TweetServiceTest.java
+/home/vai/IdeaProjects/Kwetter/src/test/java/services/RoleServiceTest.java

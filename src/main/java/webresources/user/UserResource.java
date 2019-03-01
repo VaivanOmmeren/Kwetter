@@ -85,13 +85,13 @@ public class UserResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllFollowers(@PathParam("username") String userId){
-        return Response.ok(userServiceImpl.getFollowers(userServiceImpl.getUserByID(userId))).build();
+        return Response.ok(userServiceImpl.getFollowers(userServiceImpl.getUserByName(userId))).build();
     }
 
     @Path("{username}/following")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllFollowing(@PathParam("username") String userId){
-        return Response.ok(userServiceImpl.getFollowers(userServiceImpl.getUserByID(userId))).build();
+        return Response.ok(userServiceImpl.getFollowing(userServiceImpl.getUserByID(userId))).build();
     }
 }

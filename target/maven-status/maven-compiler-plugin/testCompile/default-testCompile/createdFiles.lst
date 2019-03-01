@@ -1,2 +1,3 @@
-TweetTest.class
-UserTest.class
+services/TweetServiceTest.class
+services/RoleServiceTest.class
+services/UserServiceTest.class

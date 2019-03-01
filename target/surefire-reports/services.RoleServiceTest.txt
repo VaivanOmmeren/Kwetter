@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: TweetTest
+Test set: services.RoleServiceTest
 -------------------------------------------------------------------------------
-Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 sec
+Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 s - in services.RoleServiceTest

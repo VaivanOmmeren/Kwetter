@@ -42,8 +42,8 @@ public class UserService {
         return userDaoImpl.getAllUsers();
     }
 
-    public List<String> getFollowers(User u) {
-        return null;
+    public List<User> getFollowers(User u) {
+        return userDaoImpl.getFollowers(u.getId());
     }
 
     public List<String> getFollowing(User u) {

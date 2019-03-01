@@ -1,6 +1,5 @@
 webresources/role/RoleResource.class
 models/Tweet.class
-models/Role.class
 models/User.class
 dal/contexts/JPA/JPARoleDao.class
 dal/Dao/UserDao.class
@@ -8,6 +7,7 @@ dal/contexts/Memory/MemoryUserDao.class
 services/TweetService.class
 dal/contexts/Memory/MemoryTweetDao.class
 webresources/user/UserResource.class
+models/UserRole.class
 dal/Dao/TweetDao.class
 webresources/tweet/TweetResource.class
 services/UserService.class

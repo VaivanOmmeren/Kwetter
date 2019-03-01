@@ -47,7 +47,6 @@ public class startup {
 
         User user = new User();
         user.setName("Vai");
-        user.setPassword("test");
         user.setDateOfBirth(new Date());
         user.setBio("Ik hou van dit vak");
         user.setUserRole(userRole);

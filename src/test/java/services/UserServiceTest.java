@@ -17,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+public
 class UserServiceTest {
 
     @Mock
@@ -39,6 +40,7 @@ class UserServiceTest {
 
         assertEquals(u, uService.editUser(u));
     }
+
 
     @Test
     void followUser() {

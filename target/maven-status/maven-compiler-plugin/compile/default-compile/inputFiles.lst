@@ -1,7 +1,7 @@
 /home/vai/IdeaProjects/Kwetter/src/main/java/services/TweetService.java
 /home/vai/IdeaProjects/Kwetter/src/main/java/dal/contexts/JPA/JPARoleDao.java
-/home/vai/IdeaProjects/Kwetter/src/main/java/models/Role.java
 /home/vai/IdeaProjects/Kwetter/src/main/java/webresources/role/RoleResource.java
+/home/vai/IdeaProjects/Kwetter/src/main/java/models/UserRole.java
 /home/vai/IdeaProjects/Kwetter/src/main/java/dal/Dao/RoleDao.java
 /home/vai/IdeaProjects/Kwetter/src/main/java/models/Tweet.java
 /home/vai/IdeaProjects/Kwetter/src/main/java/webresources/user/UserResource.java

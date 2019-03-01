@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
-class RoleServiceTest {
+public class RoleServiceTest {
 
     @Mock
     private static JPARoleDao mockDao;

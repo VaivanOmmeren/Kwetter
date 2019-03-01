@@ -66,7 +66,7 @@ public class JPAUserDao implements UserDao {
     }
 
     public List<User> getFollowers(String id) {
-        Query query = em.createNativeQuery("SELECT (u.id, u.name, u.bio, u.DateOfBirth, u.password, u.website, u.userRole) FROM  User u INNER JOIN users_users uu on u.id = uu.following_id WHERE uu.users_id = :id");
+        Query query = em.createNativeQuery("SELECT u.id, u.name, u.bio, u.DateOfBirth, u.website, u.userrole_id, u.password FROM users u INNER JOIN users_users uu on u.id = uu.users_id WHERE uu.following_id = :id", User.class);
         query.setParameter("id", id);
         return new ArrayList<User>(query.getResultList());
 
