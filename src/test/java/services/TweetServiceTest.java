@@ -70,7 +70,7 @@ public class TweetServiceTest {
 
         when(tService.getAllTweetsByUser("1")).thenReturn(tweets);
 
-        assertEquals(tweets, tService.getTweetById("1"));
+        assertEquals(tweets, tService.getAllTweetsByUser("1"));
     }
 
     @Test
