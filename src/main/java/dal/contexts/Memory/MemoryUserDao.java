@@ -24,6 +24,7 @@ public class MemoryUserDao implements UserDao {
 
         for (int x = 0; x < 10; x++) {
             User user = new User("user" + x);
+            user.setId(""+x);
             Users.add(user);
 
         }
@@ -84,7 +85,7 @@ public class MemoryUserDao implements UserDao {
 
     public User getUserByID(String id) {
         for (User u : Users) {
-            if (u.getName().equals(id)) {
+            if (u.getId().equals(id)) {
                 return u;
             }
         }
@@ -120,7 +121,7 @@ public class MemoryUserDao implements UserDao {
 
     public boolean followUser(String id, String followerId) {
 
-        User u = getUserByID(id);
+        User u = getUserByName(id);
         boolean alreadyFollowing = false;
 
         for (User following : u.getFollowing()) {
@@ -133,13 +134,29 @@ public class MemoryUserDao implements UserDao {
         if (alreadyFollowing) {
             return false;
         } else {
-            u.addFollowing(getUserByID(followerId));
+            u.addFollowing(getUserByName(followerId));
             return true;
         }
     }
 
-    public boolean unfollowUser(String id, String unfollowID) {
-        return false;
+    public boolean unfollowUser(String name, String unfollownName) {
+
+        User u = getUserByName(name);
+        int index = -1;
+        for(User following: u.getFollowing()){
+            if(following.getName().equals(unfollownName)){
+                index = u.getFollowing().indexOf(following);
+            }
+        }
+
+
+        if(index != -1) {
+            User unfollow = u.getFollowing().get(index);
+            u.unFollow(unfollow);
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public List<User> getUsersByID(List<String> id) {
@@ -157,6 +174,11 @@ public class MemoryUserDao implements UserDao {
     }
 
     public User getUserByName(String name) {
+        for(User u : Users){
+            if(u.getName().equals(name)){
+                return u;
+            }
+        }
         return null;
     }
 

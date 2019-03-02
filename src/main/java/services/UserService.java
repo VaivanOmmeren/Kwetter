@@ -24,6 +24,10 @@ public class UserService {
         return userDaoImpl.followUser(userId, userToFollow);
     }
 
+    public boolean unfollowUser(String username, String userToUnfollow){
+        return userDaoImpl.unfollowUser(username, userToUnfollow);
+    }
+
     public User CreateUser(User user) {
         return userDaoImpl.CreateUser(user);
     }

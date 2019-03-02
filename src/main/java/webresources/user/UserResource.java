@@ -81,6 +81,21 @@ public class UserResource {
         return Response.status(500).build();
     }
 
+    @PUT
+    @Path("{username}/unfollow")
+    public Response unfollowUser(@PathParam("username") String username, @QueryParam("unfollowId") String userToUnfollow){
+        try{
+            if(userServiceImpl.unfollowUser(username, userToUnfollow)){
+                return Response.status(204).header("Location", new URI("/api/users?username="+username)).build();
+            }else {
+                return Response.status(400).build();
+            }
+        } catch (URISyntaxException e){
+            e.printStackTrace();
+        }
+        return Response.status(500).build();
+    }
+
     @Path("{username}/followers")
     @GET
     @Produces(MediaType.APPLICATION_JSON)

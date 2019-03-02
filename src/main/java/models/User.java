@@ -3,6 +3,7 @@ package models;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -46,6 +47,7 @@ public class User {
 
     public User(String name){
         this.name =  name;
+        this.following = new ArrayList<User>();
     }
 
     public String getName() {
@@ -101,7 +103,6 @@ public class User {
                 index = following.indexOf(u);
             }
         }
-
         if(index != -1){
             following.remove(index);
         }
