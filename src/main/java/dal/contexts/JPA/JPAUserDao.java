@@ -73,7 +73,10 @@ public class JPAUserDao implements UserDao {
     }
 
     public List<User> getFollowing(String id) {
-        return null;
+        TypedQuery query = em.createNamedQuery("users.getUserById", User.class);
+        query.setParameter("id", id);
+        List<User> users = query.getResultList();
+        return users.get(0).getFollowing();
     }
 
     public boolean followUser(String id, String followerId) {

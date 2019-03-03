@@ -21,7 +21,7 @@ public class MemoryRoleDao implements RoleDao {
     }
 
     @PostConstruct
-    private void setRoles() {
+    public void setRoles() {
         for (int x = 0; x < 5; x++) {
             UserRole r = new UserRole("test");
             r.setId(UUID.randomUUID().toString());
@@ -51,7 +51,6 @@ public class MemoryRoleDao implements RoleDao {
 
         if (index == -1) {
             userRoles.add(r);
-            System.out.println(userRoles);
             return r;
         } else {
             return null;

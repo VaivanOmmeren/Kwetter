@@ -16,7 +16,6 @@ import java.util.List;
 public class MemoryTweetDao implements TweetDao {
 
     public MemoryTweetDao(){
-        System.out.println(" constructed");
     }
 
     private List<Tweet> tweets = new ArrayList<Tweet>();
@@ -31,7 +30,6 @@ public class MemoryTweetDao implements TweetDao {
     }
 
     public Tweet getTweetById(String id) {
-        System.out.println(tweets.size());
         for(Tweet t : tweets){
             if(t.getID().equals(id)){
                 return t;
@@ -81,7 +79,7 @@ public class MemoryTweetDao implements TweetDao {
         List<Tweet> userTweets = new ArrayList<Tweet>();
 
         for(User u : Users){
-            userTweets.addAll(getAllTweetsByUser(u.getName()));
+            userTweets.addAll(getAllTweetsByUser(u.getId()));
         }
 
         return userTweets;
