@@ -7,12 +7,13 @@ import models.User;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Stateful;
+import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Default;
 import java.util.ArrayList;
 import java.util.List;
 
 @Stateful
-@Default
+@Alternative
 public class MemoryTweetDao implements TweetDao {
 
     public MemoryTweetDao(){

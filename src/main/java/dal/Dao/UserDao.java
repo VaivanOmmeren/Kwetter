@@ -18,4 +18,5 @@ public interface UserDao {
     boolean unfollowUser(String id, String unfollowID);
     List<User> getUsersByID(List<String> id);
     User getUserByName(String name);
+    User loginUser(String name, String password);
 }

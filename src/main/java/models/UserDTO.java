@@ -1,15 +1,12 @@
 package models;
 
 import java.util.Date;
-import java.util.List;
 
 public class UserDTO {
 
     private String id;
     private String name;
     private Date DateOfBirth;
-    private List<String> following;
-    private UserRole userRole;
     private String bio;
     private String website;
 
@@ -39,22 +36,6 @@ public class UserDTO {
 
     public void setDateOfBirth(Date dateOfBirth) {
         DateOfBirth = dateOfBirth;
-    }
-
-    public List<String> getFollowing() {
-        return following;
-    }
-
-    public void setFollowing(List<String> following) {
-        this.following = following;
-    }
-
-    public UserRole getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
     }
 
     public String getBio() {

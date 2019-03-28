@@ -4,7 +4,6 @@ import models.User;
 import services.UserService;
 
 import javax.inject.Inject;
-import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -28,6 +27,13 @@ public class UserResource {
         }
     }
 
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/login")
+    public Response loginUser(User u){
+        return Response.ok(userServiceImpl.loginUser(u.getName(), u.getPassword())).build();
+    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -107,6 +113,6 @@ public class UserResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllFollowing(@PathParam("username") String userId){
-        return Response.ok(userServiceImpl.getFollowing(userServiceImpl.getUserByID(userId))).build();
+        return Response.ok(userServiceImpl.getFollowing(userServiceImpl.getUserByName(userId))).build();
     }
 }

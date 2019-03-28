@@ -2,6 +2,7 @@ package dal.contexts.JPA;
 
 import dal.Dao.UserDao;
 import models.User;
+import models.UserDTO;
 
 import javax.annotation.PreDestroy;
 import javax.ejb.Stateless;
@@ -41,42 +42,57 @@ public class JPAUserDao implements UserDao {
     }
 
     public boolean RemoveUser(String id) {
-
         em.remove(getUserByID(id));
         return true;
     }
 
     public User getUserByID(String id) {
-        TypedQuery query = em.createNamedQuery("users.getUserById", User.class);
+        TypedQuery<User> query = em.createQuery("SELECT NEW models.User(u.id, u.name, u.DateOfBirth, u.bio, u.website, u.userRole) " +
+                "FROM User u " +
+                "WHERE u.id = :id", User.class);
         query.setParameter("id", id);
         List<User> users = query.getResultList();
         return users.get(0);
     }
 
     public User getUserByName(String name){
-        TypedQuery query = em.createNamedQuery("users.getUserByName", User.class);
+        TypedQuery<User> query = em.createQuery("SELECT NEW models.User(u.id, u.name, u.DateOfBirth, u.bio, u.website, u.userRole) " +
+                "FROM User u" +
+                " WHERE u.name = :name", User.class);
         query.setParameter("name", name);
-        List<User> users = query.getResultList();
-        return users.get(0);
+        return query.getSingleResult();
+    }
+
+    public User loginUser(String name, String password) {
+        TypedQuery<User> query = em.createQuery("SELECT NEW models.User(u.id, u.name, u.DateOfBirth, u.bio, u.website, u.userRole)FROM User u " +
+                "WHERE u.name = :name AND u.password = :password", User.class);
+        query.setParameter("name", name);
+        query.setParameter("password", password);
+        return query.getSingleResult();
     }
 
     public List<User> getAllUsers() {
-        Query query = em.createQuery("SELECT s FROM User s");
+        TypedQuery<User> query = em.createQuery("SELECT NEW models.User(u.id, u.name, u.DateOfBirth, u.bio, u.website, u.userRole) FROM User u", User.class);
         return new ArrayList<User>(query.getResultList());
     }
 
     public List<User> getFollowers(String id) {
-        Query query = em.createNativeQuery("SELECT u.id, u.name, u.bio, u.DateOfBirth, u.website, u.userrole_id, u.password FROM users u INNER JOIN users_users uu on u.id = uu.users_id WHERE uu.following_id = :id", User.class);
+        TypedQuery<User> query = em.createQuery("SELECT NEW models.User(u.id, u.name, u.DateOfBirth, u.bio, u.website, u.userRole) " +
+                "FROM User u " +
+                "JOIN u.following AS f " +
+                "WHERE f.id = :id", User.class);
         query.setParameter("id", id);
         return new ArrayList<User>(query.getResultList());
 
     }
 
     public List<User> getFollowing(String id) {
-        TypedQuery query = em.createNamedQuery("users.getUserById", User.class);
+        TypedQuery<User> query  = em.createQuery("SELECT NEW models.User(f.id, f.name, f.DateOfBirth, f.bio, f.website, f.userRole) " +
+                "FROM User u " +
+                "JOIN u.following AS f " +
+                "WHERE u.id = :id", User.class);
         query.setParameter("id", id);
-        List<User> users = query.getResultList();
-        return users.get(0).getFollowing();
+        return new ArrayList<User>(query.getResultList());
     }
 
     public boolean followUser(String id, String followerId) {

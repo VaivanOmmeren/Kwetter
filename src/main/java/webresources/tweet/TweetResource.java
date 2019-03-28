@@ -11,7 +11,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @Path("/tweets")
-public class TweetResource {
+public class    TweetResource {
 
     @Inject
     TweetService tweetService;

@@ -13,7 +13,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Stateless
-@Alternative
+@Default
 public class JPATweetDao implements TweetDao {
 
     public JPATweetDao(){

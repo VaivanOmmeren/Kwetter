@@ -50,7 +50,11 @@ public class UserService {
         return userDaoImpl.getFollowers(u.getId());
     }
 
-    public List<String> getFollowing(User u) {
-        return null;
+    public List<User> getFollowing(User u) {
+        return userDaoImpl.getFollowing(u.getId());
+    }
+
+    public User loginUser(String name, String password){
+        return userDaoImpl.loginUser(name, password);
     }
 }

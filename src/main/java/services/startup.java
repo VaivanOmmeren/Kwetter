@@ -52,12 +52,17 @@ public class startup {
         user.setUserRole(userRole);
         user.setWebsite("www.vaifreecams.com");
 
+        User frontend = new User();
+        frontend.setName("admin");
+        frontend.setDateOfBirth(new Date());
+        frontend.setBio("Front end is best wel lame");
+        frontend.setUserRole(adminUserRole);
+        frontend.setWebsite("www.vaifi.dev");
 
+
+        dao.CreateUser(frontend);
         dao.CreateUser(user);
         dao.CreateUser(admin);
-
-        Tweet tweet = new Tweet("dit is een test tweet", "20");
-        tweetDao.CreateTweet(tweet);
 
 
     }

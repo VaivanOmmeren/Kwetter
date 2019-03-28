@@ -182,4 +182,8 @@ public class MemoryUserDao implements UserDao {
         return null;
     }
 
+    public User loginUser(String name, String password) {
+        return null;
+    }
+
 }

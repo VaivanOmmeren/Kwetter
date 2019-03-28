@@ -13,5 +13,6 @@ public class myConfig extends ResourceConfig {
         register(UserResource.class);
         register(TweetResource.class);
         register(RoleResource.class);
+        register(CORSResponseFilter.class);
     }
 }

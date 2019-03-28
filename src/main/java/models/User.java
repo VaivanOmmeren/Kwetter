@@ -11,7 +11,7 @@ import java.util.List;
 @Table(name= "users")
 @NamedQueries({
         @NamedQuery(name = "users.getUserById", query = "SELECT s FROM User s WHERE s.id = :id"),
-        @NamedQuery(name = "users.getUserByName", query = "SELECT s from User s WHERE s.name = :name")
+        @NamedQuery(name = "users.getUserByName", query = "SELECT s FROM User s WHERE s.name = :name")
 })
 public class User {
 
@@ -39,6 +39,15 @@ public class User {
     public User(String name, String password, UserRole userRole, Date dateOfBirth, String bio, String website){
         this.name = name;
         this.password = password;
+        this.DateOfBirth = dateOfBirth;
+        this.bio = bio;
+        this.website = website;
+        this.userRole = userRole;
+    }
+
+    public User(String id, String name, Date dateOfBirth, String bio, String website, UserRole userRole){
+        this.id = id;
+        this.name = name;
         this.DateOfBirth = dateOfBirth;
         this.bio = bio;
         this.website = website;

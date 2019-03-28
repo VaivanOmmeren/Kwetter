@@ -3,4 +3,4 @@ Twitter clone application for a school assignment
 
 
 TODO
-Fix intergration tests for resources so travis build will pass again.
+Fixing auto assign rules to new users that registrate
