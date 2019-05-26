@@ -2,6 +2,8 @@ package webresources.tweet;
 
 import models.Tweet;
 import services.TweetService;
+
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -46,6 +48,7 @@ public class    TweetResource {
     @GET
     @Path("/{username}")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"user", "Administrator"})
     public Response getTweetByUser(@PathParam("username") String userId){
         return Response.ok(tweetService.getAllTweetsByUser(userId)).build();
     }

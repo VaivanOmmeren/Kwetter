@@ -1,14 +1,19 @@
 package webresources.user;
 
+import jwt.TokenProvider;
 import models.User;
 import services.UserService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Path("/users")
 public class UserResource {
@@ -16,10 +21,15 @@ public class UserResource {
 
     @Inject
     private UserService userServiceImpl;
+    @Inject
+    private TokenProvider tokenProvider;
+    @Context
+    SecurityContext context;
 
     @GET
+    @RolesAllowed("Administrator")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUser(@QueryParam("username") String username) {
+    public Response getUser(@Context HttpHeaders headers, @QueryParam("username") String username) {
         if(username != null){
             return Response.status(200).entity(userServiceImpl.getUserByName(username)).build();
         }else{
@@ -32,7 +42,18 @@ public class UserResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/login")
     public Response loginUser(User u){
-        return Response.ok(userServiceImpl.loginUser(u.getName(), u.getPassword())).build();
+        try{
+            User user = userServiceImpl.loginUser(u.getName(), u.getPassword());
+            Set<String> roles = new HashSet<>();
+            roles.add(user.getUserRole().getName());
+            String token = tokenProvider.createToken(u.getName(), roles, true);
+            user.setToken(token);
+
+            return Response.ok().entity(user).build();
+
+        } catch (NoResultException e){
+            return Response.serverError().build();
+        }
     }
 
     @POST
@@ -49,6 +70,7 @@ public class UserResource {
 
 
     @DELETE
+    @RolesAllowed("Administrator")
     public Response deleteUser(@QueryParam("username") String userId) {
         if (userServiceImpl.RemoveUser(userId)) {
             return Response.status(200).build();

@@ -39,6 +39,15 @@ public class MemoryRoleDao implements RoleDao {
         return null;
     }
 
+    public UserRole getRoleByName(String name){
+        for(UserRole r: userRoles){
+            if(r.getName().equals(name)){
+                return r;
+            }
+        }
+        return null;
+    }
+
     public UserRole addRole(UserRole r) {
 
         int index = -1;

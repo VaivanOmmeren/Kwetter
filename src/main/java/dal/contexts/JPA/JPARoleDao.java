@@ -30,6 +30,12 @@ public class JPARoleDao implements RoleDao {
         return roles.get(0);
     }
 
+    public UserRole getRoleByName(String name){
+        TypedQuery<UserRole> query = em.createQuery("SELECT r FROM UserRole r WHERE name = :name", UserRole.class);
+        query.setParameter("name", name);
+        return query.getSingleResult();
+    }
+
     public UserRole addRole(UserRole r) {
         em.persist(r);
         return r;

@@ -36,7 +36,6 @@ public class JPAUserDao implements UserDao {
     }
 
     public User CreateUser(User user) {
-
         em.persist(user);
         return user;
     }

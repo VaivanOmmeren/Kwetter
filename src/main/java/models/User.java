@@ -31,6 +31,7 @@ public class User {
     private UserRole userRole;
     private String bio;
     private String website;
+    private String token;
 
     public User(){
 
@@ -141,5 +142,11 @@ public class User {
         this.userRole = userRole;
     }
 
+    public String getToken() {
+        return token;
+    }
 
+    public void setToken(String token) {
+        this.token = token;
+    }
 }

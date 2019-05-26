@@ -1,5 +1,6 @@
 package services;
 
+import dal.Dao.RoleDao;
 import dal.Dao.UserDao;
 import models.User;
 import javax.ejb.Stateless;
@@ -11,6 +12,8 @@ public class UserService {
 
     @Inject
     private UserDao userDaoImpl;
+    @Inject
+    private RoleDao roleDao;
 
     public UserService(){
 
@@ -29,6 +32,7 @@ public class UserService {
     }
 
     public User CreateUser(User user) {
+        user.setUserRole(roleDao.getRoleByName("user"));
         return userDaoImpl.CreateUser(user);
     }
 
