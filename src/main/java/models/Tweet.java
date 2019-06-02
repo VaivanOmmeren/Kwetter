@@ -18,7 +18,6 @@ public class Tweet {
     }
 
     public Tweet(String text, String authorID){
-        this.id = id;
         this.text = text;
         this.authorID = authorID;
     }

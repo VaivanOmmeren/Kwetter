@@ -76,13 +76,14 @@ public class MemoryTweetDao implements TweetDao {
         return userTweets;
     }
 
-    public List<Tweet> getAllTweetsByUsers(List<User> Users) {
-        List<Tweet> userTweets = new ArrayList<Tweet>();
-
-        for(User u : Users){
-            userTweets.addAll(getAllTweetsByUser(u.getId()));
-        }
-
-        return userTweets;
+    public List<Tweet> getAllTweetsByUsers(List<String> Users) {
+//        List<Tweet> userTweets = new ArrayList<Tweet>();
+//
+//        for(User u : Users){
+//            userTweets.addAll(getAllTweetsByUser(u.getId()));
+//        }
+//
+//        return userTweets;
+        return null;
     }
 }

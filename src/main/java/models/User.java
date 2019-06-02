@@ -25,7 +25,7 @@ public class User {
     private Date DateOfBirth;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<User> following;
+    private List<User> following = new ArrayList<>();
 
     @ManyToOne
     private UserRole userRole;
@@ -46,8 +46,9 @@ public class User {
         this.userRole = userRole;
     }
 
-    public User(String id, String name, Date dateOfBirth, String bio, String website, UserRole userRole){
+    public User(String id, String password, String name, Date dateOfBirth, String bio, String website, UserRole userRole){
         this.id = id;
+        this.password = password;
         this.name = name;
         this.DateOfBirth = dateOfBirth;
         this.bio = bio;

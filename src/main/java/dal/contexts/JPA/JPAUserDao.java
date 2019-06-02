@@ -46,7 +46,7 @@ public class JPAUserDao implements UserDao {
     }
 
     public User getUserByID(String id) {
-        TypedQuery<User> query = em.createQuery("SELECT NEW models.User(u.id, u.name, u.DateOfBirth, u.bio, u.website, u.userRole) " +
+        TypedQuery<User> query = em.createQuery("SELECT NEW models.User(u.id, u.password, u.name, u.DateOfBirth, u.bio, u.website, u.userRole) " +
                 "FROM User u " +
                 "WHERE u.id = :id", User.class);
         query.setParameter("id", id);
@@ -55,7 +55,7 @@ public class JPAUserDao implements UserDao {
     }
 
     public User getUserByName(String name){
-        TypedQuery<User> query = em.createQuery("SELECT NEW models.User(u.id, u.name, u.DateOfBirth, u.bio, u.website, u.userRole) " +
+        TypedQuery<User> query = em.createQuery("SELECT NEW models.User(u.id, u.password, u.name, u.DateOfBirth, u.bio, u.website, u.userRole) " +
                 "FROM User u" +
                 " WHERE u.name = :name", User.class);
         query.setParameter("name", name);
@@ -63,7 +63,7 @@ public class JPAUserDao implements UserDao {
     }
 
     public User loginUser(String name, String password) {
-        TypedQuery<User> query = em.createQuery("SELECT NEW models.User(u.id, u.name, u.DateOfBirth, u.bio, u.website, u.userRole)FROM User u " +
+        TypedQuery<User> query = em.createQuery("SELECT NEW models.User(u.id, u.password, u.name, u.DateOfBirth, u.bio, u.website, u.userRole)FROM User u " +
                 "WHERE u.name = :name AND u.password = :password", User.class);
         query.setParameter("name", name);
         query.setParameter("password", password);
@@ -71,12 +71,12 @@ public class JPAUserDao implements UserDao {
     }
 
     public List<User> getAllUsers() {
-        TypedQuery<User> query = em.createQuery("SELECT NEW models.User(u.id, u.name, u.DateOfBirth, u.bio, u.website, u.userRole) FROM User u", User.class);
+        TypedQuery<User> query = em.createQuery("SELECT NEW models.User(u.id, u.password, u.name, u.DateOfBirth, u.bio, u.website, u.userRole) FROM User u", User.class);
         return new ArrayList<User>(query.getResultList());
     }
 
     public List<User> getFollowers(String id) {
-        TypedQuery<User> query = em.createQuery("SELECT NEW models.User(u.id, u.name, u.DateOfBirth, u.bio, u.website, u.userRole) " +
+        TypedQuery<User> query = em.createQuery("SELECT NEW models.User(u.id, u.password, u.name, u.DateOfBirth, u.bio, u.website, u.userRole) " +
                 "FROM User u " +
                 "JOIN u.following AS f " +
                 "WHERE f.id = :id", User.class);
@@ -86,7 +86,7 @@ public class JPAUserDao implements UserDao {
     }
 
     public List<User> getFollowing(String id) {
-        TypedQuery<User> query  = em.createQuery("SELECT NEW models.User(f.id, f.name, f.DateOfBirth, f.bio, f.website, f.userRole) " +
+        TypedQuery<User> query  = em.createQuery("SELECT NEW models.User(f.id, f.password, f.name, f.DateOfBirth, f.bio, f.website, f.userRole) " +
                 "FROM User u " +
                 "JOIN u.following AS f " +
                 "WHERE u.id = :id", User.class);
@@ -97,6 +97,7 @@ public class JPAUserDao implements UserDao {
     public boolean followUser(String id, String followerId) {
         User user = getUserByName(id);
         User followThis =  getUserByName(followerId);
+        user.setFollowing(getFollowing(user.getId()));
         user.addFollowing(followThis);
 
         EditUser(user);

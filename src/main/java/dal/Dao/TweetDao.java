@@ -11,5 +11,5 @@ public interface TweetDao {
     Tweet CreateTweet(Tweet tweet);
     boolean RemoveTweet(String id);
     List<Tweet> getAllTweetsByUser(String id);
-    List<Tweet> getAllTweetsByUsers(List<User> userIDs);
+    List<Tweet> getAllTweetsByUsers(List<String> userIDs);
 }

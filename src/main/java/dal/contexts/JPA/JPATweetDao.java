@@ -10,6 +10,7 @@ import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
@@ -47,7 +48,10 @@ public class JPATweetDao implements TweetDao {
         return tweets;
     }
 
-    public List<Tweet> getAllTweetsByUsers(List<User> userIDs) {
-        return null;
+    public List<Tweet> getAllTweetsByUsers(List<String> userIDs) {
+        TypedQuery<Tweet> query = em.createQuery("SELECT t FROM Tweet t WHERE t.authorID IN :id", Tweet.class);
+        query.setParameter("id", userIDs);
+        return query.getResultList();
+
     }
 }

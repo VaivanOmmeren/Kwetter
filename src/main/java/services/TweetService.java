@@ -38,6 +38,6 @@ public class TweetService {
     }
 
     public List<Tweet> getAllTweetsByUsers(List<String> userIDs) {
-        return tweetDao.getAllTweetsByUsers(userDao.getUsersByID(userIDs));
+        return tweetDao.getAllTweetsByUsers(userIDs);
     }
 }
