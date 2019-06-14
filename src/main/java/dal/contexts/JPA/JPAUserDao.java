@@ -30,8 +30,9 @@ public class JPAUserDao implements UserDao {
 
 
     public User EditUser(User u) {
-        em.merge(u);
 
+        u.setFollowing(getFollowing(u.getId()));
+        em.merge(u);
         return getUserByID(u.getId());
     }
 
@@ -100,7 +101,7 @@ public class JPAUserDao implements UserDao {
         user.setFollowing(getFollowing(user.getId()));
         user.addFollowing(followThis);
 
-        EditUser(user);
+        em.merge(user);
         return true;
     }
 
@@ -110,7 +111,7 @@ public class JPAUserDao implements UserDao {
 
         user.unFollow(unfollowThis);
 
-        EditUser(user);
+        em.merge(user);
 
         return true;
     }
