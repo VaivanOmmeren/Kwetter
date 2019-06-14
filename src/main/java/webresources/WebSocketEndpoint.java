@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dal.Dao.UserDao;
 import models.Tweet;
 import models.User;
+import services.SessionService;
 
 import javax.inject.Inject;
 import javax.websocket.OnClose;
@@ -20,22 +21,23 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @ServerEndpoint("/socket/{username}")
 public class WebSocketEndpoint {
-
-    private static final Map<String, Session> sessionHashMap = new ConcurrentHashMap<>();
+    
     private static final ObjectMapper mapper = new ObjectMapper();
 
+    @Inject
+    private SessionService sService;
 
     @Inject
     private UserDao dao;
 
     @OnOpen
     public void onOpened(Session session, @PathParam("username") String username) {
-        sessionHashMap.put(username, session);
+        sService.addSession(username, session);
     }
 
     @OnClose
     public void onClosed(Session session, @PathParam("username") String username) {
-        sessionHashMap.remove(username);
+        sService.getSessionHashMap().remove(username);
     }
 
     @OnMessage
@@ -52,9 +54,9 @@ public class WebSocketEndpoint {
             List<User> followers = dao.getFollowers(placedBy);
 
             followers.forEach( k -> {
-                if(sessionHashMap.containsKey(k.getId())){
+                if(sService.getSessionHashMap().containsKey(k.getId())){
                     try {
-                        sessionHashMap.get(k.getId()).getAsyncRemote().sendText(mapper.writeValueAsString(t));
+                        sService.getSessionHashMap().get(k.getId()).getAsyncRemote().sendText(mapper.writeValueAsString(t));
                     } catch (JsonProcessingException e) {
                         e.printStackTrace();
                     }
