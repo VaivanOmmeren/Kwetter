@@ -11,7 +11,9 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -27,13 +29,34 @@ public class UserResource {
     SecurityContext context;
 
     @GET
-    @RolesAllowed("Administrator")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getUser(@Context HttpHeaders headers, @QueryParam("username") String username) {
+    public Response getUser(@Context HttpHeaders headers, @QueryParam("username") String username, @Context UriInfo uriInfo) {
         if(username != null){
-            return Response.status(200).entity(userServiceImpl.getUserByName(username)).build();
+            User u = userServiceImpl.getUserByName(username);
+//            initLinks(u, uriInfo);
+
+            Link self = Link.fromUriBuilder(uriInfo.getAbsolutePathBuilder().queryParam("username", u.getName()))
+                                            .rel("self").build();
+
+            Link following = Link.fromUriBuilder(uriInfo.getAbsolutePathBuilder().path("/" + u.getName() + "/following"))
+                                            .rel("following").build();
+
+            Link followers = Link.fromUriBuilder(uriInfo.getAbsolutePathBuilder().path("/" + u.getName() + "/followers"))
+                                            .rel("followers").build();
+
+            Link kweets = Link.fromUriBuilder(uriInfo.getBaseUriBuilder().path("/tweets/" + u.getId()))
+                                            .rel("tweets").build();
+
+            return Response.ok(u).links(self, following, followers, kweets).build();
+
         }else{
-            return Response.status(200).entity(userServiceImpl.getAllUsers()).build();
+            List<User> users = userServiceImpl.getAllUsers();
+            users.forEach( u -> initLinks(u, uriInfo));
+
+            Link self = Link.fromUriBuilder(uriInfo.getAbsolutePathBuilder())
+                                            .rel("self").build();
+            return Response.ok(users).links(self).build();
+
         }
     }
 
@@ -84,6 +107,7 @@ public class UserResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{username}")
+    @RolesAllowed({"user", "Administrator"})
     public Response editUser(User u){
         try{
             return Response.ok(userServiceImpl.editUser(u)).header("Location", new URI("/api/users?username="+u.getName())).build();
@@ -95,6 +119,7 @@ public class UserResource {
 
     @PUT
     @Path("{username}/follow")
+    @RolesAllowed({"user", "Administrator"})
     public Response followUser(@PathParam("username") String userName, @QueryParam("followID") String userToFollow){
         try {
             if(userServiceImpl.followUser(userName, userToFollow)){
@@ -111,6 +136,7 @@ public class UserResource {
 
     @PUT
     @Path("{username}/unfollow")
+    @RolesAllowed({"user", "Administrator"})
     public Response unfollowUser(@PathParam("username") String username, @QueryParam("unfollowId") String userToUnfollow){
         try{
             if(userServiceImpl.unfollowUser(username, userToUnfollow)){
@@ -136,5 +162,15 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllFollowing(@PathParam("username") String userId){
         return Response.ok(userServiceImpl.getFollowing(userServiceImpl.getUserByName(userId))).build();
+    }
+
+    private void initLinks(User u, UriInfo uriInfo){
+        //create self link
+        UriBuilder uriBuilder = uriInfo.getRequestUriBuilder();
+        uriBuilder = uriBuilder.path(u.getName());
+        Link.Builder linkBuilder = Link.fromUriBuilder(uriBuilder);
+        Link selfLink = linkBuilder.rel("self").build();
+
+        u.setLinks(Arrays.asList(selfLink));
     }
 }

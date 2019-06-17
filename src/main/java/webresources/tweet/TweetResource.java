@@ -5,9 +5,9 @@ import services.TweetService;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+import javax.management.Query;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -21,9 +21,10 @@ public class    TweetResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"user", "Administrator"})
     public Response createTweet(Tweet tweet) {
         try {
-            return Response.ok(tweetService.createTweet(tweet)).header("Location", new URI("/api/tweets?id=" + tweet.getID())).build();
+            return Response.ok(tweetService.createTweet(tweet)).header("Location", new URI("/api/tweets?id=" + tweet.getId())).build();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -31,6 +32,7 @@ public class    TweetResource {
     }
 
     @DELETE
+    @RolesAllowed("Administrator")
     public Response removeTweet(@QueryParam("id") String id) {
         if (tweetService.RemoveTweet(id)) {
             return Response.status(200).build();
@@ -41,8 +43,19 @@ public class    TweetResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getTweet(@QueryParam("id") String id){
-        return Response.ok(tweetService.getTweetById(id)).build();
+    public Response getTweet(@QueryParam("id") String id, @Context UriInfo uriInfo){
+        Tweet t = tweetService.getTweetById(id);
+
+        Link self = Link.fromUriBuilder(uriInfo.getAbsolutePathBuilder()
+                                        .queryParam("id", t.getId()))
+                                        .rel("self").build();
+
+        Link author = Link.fromUriBuilder(uriInfo.getBaseUriBuilder()
+                                        .path("/users")
+                                        .queryParam("username", t.getAuthorname()))
+                                        .rel("author").build();
+
+        return Response.ok(t).links(self, author).build();
     }
 
     @GET
@@ -58,5 +71,13 @@ public class    TweetResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getTweetByUsers(@QueryParam("users") List<String> userIDs){
         return Response.ok(tweetService.getAllTweetsByUsers(userIDs)).build();
+    }
+
+    @GET
+    @Path("hashtag")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTweetByHashtag(@QueryParam("tag") String tag){
+        System.out.println(tag);
+        return Response.ok(tweetService.getAllTweetByTag(tag)).build();
     }
 }

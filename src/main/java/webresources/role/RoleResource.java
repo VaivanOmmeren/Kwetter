@@ -3,6 +3,7 @@ package webresources.role;
 import models.UserRole;
 import services.RoleService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -19,6 +20,7 @@ public class RoleResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("Administrator")
     public Response createRole(UserRole r){
         try {
             return Response.ok(roleService.createRole(r)).header("Location", new URI("/api/role?id=" +r.getId())).build();
@@ -43,6 +45,7 @@ public class RoleResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("Administrator")
     public Response updateRole(UserRole r){
         try {
             return Response.ok(roleService.updateRole(r)).header("Location", new URI("/api/role?id="+ r.getId())).build();
@@ -53,6 +56,7 @@ public class RoleResource {
     }
 
     @DELETE
+    @RolesAllowed("Administrator")
     public Response deleteRole(@QueryParam("id") String id){
         if(roleService.removeRole(id)){
             return Response.ok().build();

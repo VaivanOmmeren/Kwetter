@@ -23,8 +23,8 @@ public class TweetMemoryTest {
 
     @Test
     void getTweetByID(){
-        Tweet tweet = new Tweet("test", "5");
-        tweet.setID("100");
+        Tweet tweet = new Tweet("test", "5", "test");
+        tweet.setId("100");
         memDao.CreateTweet(tweet);
 
         assertEquals(tweet, memDao.getTweetById("100"));
@@ -32,16 +32,16 @@ public class TweetMemoryTest {
 
     @Test
     void createTweet(){
-        Tweet t = new Tweet("Test", "400");
-        t.setID("4500");
+        Tweet t = new Tweet("Test", "400", "test");
+        t.setId("4500");
 
         assertEquals(t, memDao.CreateTweet(t));
     }
 
     @Test
     void RemoveTweet(){
-        Tweet t = new Tweet("test", "4001");
-        t.setID("40325");
+        Tweet t = new Tweet("test", "4001", "test");
+        t.setId("40325");
         memDao.CreateTweet(t);
 
         assertEquals(t, memDao.getTweetById("40325"));
@@ -52,8 +52,8 @@ public class TweetMemoryTest {
     @Test
     void getAllTweetsByUser(){
 
-        Tweet t = new Tweet("test", "1337");
-        t.setID("403294");
+        Tweet t = new Tweet("test", "1337", "test");
+        t.setId("403294");
         assertEquals(0, memDao.getAllTweetsByUser("1337").size());
         memDao.CreateTweet(t);
         assertEquals(1, memDao.getAllTweetsByUser("1337").size());
@@ -62,8 +62,8 @@ public class TweetMemoryTest {
     @Test
     void getAllTweetsByUsers(){
 
-        Tweet t = new Tweet("test", "1337");
-        Tweet t2 = new Tweet("test", "1338");
+        Tweet t = new Tweet("test", "1337", "test");
+        Tweet t2 = new Tweet("test", "1338", "test");
 
         List<User> users = new ArrayList<User>();
         User u = new User("Henk");

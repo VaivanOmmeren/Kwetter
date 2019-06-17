@@ -58,7 +58,7 @@ public class startup {
         user.setWebsite("www.vaifreecams.com");
 
         User frontend = new User();
-        user.setPassword("test");
+        frontend.setPassword("test");
         frontend.setName("admin");
         frontend.setDateOfBirth(new Date());
         frontend.setBio("Front end is best wel lame");
@@ -75,13 +75,13 @@ public class startup {
         User adminU = dao.getUserByName("admin");
 
         for (int i = 0; i < 10; i++) {
-            Tweet tweet = new Tweet("Dit is een test"  + i, henk.getId());
+            Tweet tweet = new Tweet("Dit is een test"  + i, henk.getId(), henk.getName());
             tweetDao.CreateTweet(tweet);
 
-            Tweet tweet2 = new Tweet("Dit is een test voor vai" + i, vai.getId());
+            Tweet tweet2 = new Tweet("Dit is een test voor vai" + i, vai.getId(), vai.getName());
             tweetDao.CreateTweet(tweet2);
 
-            Tweet tweet3 = new Tweet("dit is tweet voor admin" + i, adminU.getId());
+            Tweet tweet3 = new Tweet("dit is tweet voor admin" + i, adminU.getId(), adminU.getName());
             tweetDao.CreateTweet(tweet3);
         }
 

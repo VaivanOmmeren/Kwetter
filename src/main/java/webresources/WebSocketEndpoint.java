@@ -21,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @ServerEndpoint("/socket/{username}")
 public class WebSocketEndpoint {
-    
+
     private static final ObjectMapper mapper = new ObjectMapper();
 
     @Inject

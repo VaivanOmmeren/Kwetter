@@ -3,10 +3,17 @@ package models;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.ws.rs.core.Link;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name= "users")
 @NamedQueries({
@@ -32,6 +39,10 @@ public class User {
     private String bio;
     private String website;
     private String token;
+
+    @Transient
+    @XmlJavaTypeAdapter(Link.JaxbAdapter.class)
+    private List<Link> links;
 
     public User(){
 
@@ -149,5 +160,13 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public List<Link> getLinks() {
+        return links;
+    }
+
+    public void setLinks(List<Link> links) {
+        this.links = links;
     }
 }

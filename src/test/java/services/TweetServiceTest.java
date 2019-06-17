@@ -44,22 +44,22 @@ public class TweetServiceTest {
     void removeTweet() {
 
         Tweet t = new Tweet();
-        t.setID("1");
+        t.setId("1");
 
-        when(tService.RemoveTweet(t.getID())).thenReturn(true);
+        when(tService.RemoveTweet(t.getId())).thenReturn(true);
 
-        assertTrue(tService.RemoveTweet(t.getID()));
+        assertTrue(tService.RemoveTweet(t.getId()));
     }
 
     @Test
     void getTweetById() {
 
         Tweet t = new Tweet();
-        t.setID("2");
+        t.setId("2");
 
-        when(tService.getTweetById(t.getID())).thenReturn(t);
+        when(tService.getTweetById(t.getId())).thenReturn(t);
 
-        assertEquals(t, tService.getTweetById(t.getID()));
+        assertEquals(t, tService.getTweetById(t.getId()));
 
     }
 

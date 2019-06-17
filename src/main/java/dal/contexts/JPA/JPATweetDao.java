@@ -9,6 +9,7 @@ import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Default;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,5 +54,13 @@ public class JPATweetDao implements TweetDao {
         query.setParameter("id", userIDs);
         return query.getResultList();
 
+    }
+
+    @Override
+    public List<Tweet> getAllTweetWithTag(String tag) {
+        tag = "%#" + tag + "%";
+        Query query = em.createNativeQuery("SELECT t.* FROM Tweet t WHERE t.text LIKE :tag", Tweet.class);
+        query.setParameter("tag", tag);
+        return query.getResultList();
     }
 }

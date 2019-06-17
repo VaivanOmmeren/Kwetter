@@ -17,11 +17,11 @@ public class TweetService {
     @Inject
     UserDao userDao;
 
-    public TweetService(){
+    public TweetService() {
 
     }
 
-    public Tweet createTweet(Tweet t){
+    public Tweet createTweet(Tweet t) {
         return tweetDao.CreateTweet(t);
     }
 
@@ -39,5 +39,10 @@ public class TweetService {
 
     public List<Tweet> getAllTweetsByUsers(List<String> userIDs) {
         return tweetDao.getAllTweetsByUsers(userIDs);
+    }
+
+    public List<Tweet> getAllTweetByTag(String tag) {
+        System.out.println(tag);
+        return tweetDao.getAllTweetWithTag(tag);
     }
 }

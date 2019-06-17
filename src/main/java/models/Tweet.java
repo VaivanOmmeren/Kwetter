@@ -1,9 +1,11 @@
 package models;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.inject.Named;
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -17,9 +19,10 @@ public class Tweet {
 
     }
 
-    public Tweet(String text, String authorID){
+    public Tweet(String text, String authorID, String authorname){
         this.text = text;
         this.authorID = authorID;
+        this.authorname = authorname;
     }
 
     @Id
@@ -28,7 +31,24 @@ public class Tweet {
     private String id;
     private String text;
     private String authorID;
+    private String authorname;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     private Date postTimeStamp;
+
+    public String getId() {
+        return id;
+    }
+
+
+    public String getAuthorname() {
+        return authorname;
+    }
+
+    public void setAuthorname(String authorname) {
+        this.authorname = authorname;
+    }
 
     public String getText() {
         return text;
@@ -54,11 +74,7 @@ public class Tweet {
         this.postTimeStamp = postTimeStamp;
     }
 
-    public String getID() {
-        return id;
-    }
-
-    public void setID(String ID) {
-        this.id = ID;
+    public void setId(String id) {
+        this.id = id;
     }
 }

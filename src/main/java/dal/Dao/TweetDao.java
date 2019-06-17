@@ -12,4 +12,5 @@ public interface TweetDao {
     boolean RemoveTweet(String id);
     List<Tweet> getAllTweetsByUser(String id);
     List<Tweet> getAllTweetsByUsers(List<String> userIDs);
+    List<Tweet> getAllTweetWithTag(String tag);
 }

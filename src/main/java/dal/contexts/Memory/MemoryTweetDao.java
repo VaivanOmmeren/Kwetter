@@ -24,15 +24,15 @@ public class MemoryTweetDao implements TweetDao {
     @PostConstruct
     public void createTweets(){
         for(int x = 0; x < 10; x++){
-            Tweet tweet = new Tweet("Dit is een test", ""+(x*x));
-            tweet.setID(""+x);
+            Tweet tweet = new Tweet("Dit is een test", ""+(x*x), "henk");
+            tweet.setId(""+x);
             tweets.add(tweet);
         }
     }
 
     public Tweet getTweetById(String id) {
         for(Tweet t : tweets){
-            if(t.getID().equals(id)){
+            if(t.getId().equals(id)){
                 return t;
             }
         }
@@ -49,7 +49,7 @@ public class MemoryTweetDao implements TweetDao {
         int index = -1;
 
         for(Tweet t : tweets){
-            if(t.getID().equals(id)){
+            if(t.getId().equals(id)){
                 index = tweets.indexOf(t);
                 break;
             }
@@ -77,13 +77,26 @@ public class MemoryTweetDao implements TweetDao {
     }
 
     public List<Tweet> getAllTweetsByUsers(List<String> Users) {
-//        List<Tweet> userTweets = new ArrayList<Tweet>();
-//
-//        for(User u : Users){
-//            userTweets.addAll(getAllTweetsByUser(u.getId()));
-//        }
-//
-//        return userTweets;
-        return null;
+        List<Tweet> userTweets = new ArrayList<Tweet>();
+
+        for(String u : Users){
+            userTweets.addAll(getAllTweetsByUser(u));
+        }
+
+        return userTweets;
+    }
+
+    @Override
+    public List<Tweet> getAllTweetWithTag(String tag) {
+
+        List<Tweet> tagTweets = new ArrayList<>();
+
+        for(Tweet t: tweets){
+            if(t.getText().contains(tag)){
+                tagTweets.add(t);
+            }
+        }
+
+        return tagTweets;
     }
 }
